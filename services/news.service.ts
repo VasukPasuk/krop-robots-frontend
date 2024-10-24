@@ -7,7 +7,7 @@ import {INewsItem} from "@/types";
 export default class NewsService {
   static URL: string = "/news"
 
-  static async getMany({limit, page}: {limit: number, page: number}) {
+  static async getMany({limit, page}: {limit?: number, page?: number}) {
     const searchQuery = qs.stringify({
       populate: ['*'],
       pagination: {

@@ -5,10 +5,10 @@ import {IReview} from "@/types";
 
 
 interface ISearchQueries {
-  limit: number;
-  page: number;
+  limit?: number;
+  page?: number;
   productId: string;
-  order: "asc" | "desc"
+  order?: "asc" | "desc"
 }
 
 export default class ReviewsService {

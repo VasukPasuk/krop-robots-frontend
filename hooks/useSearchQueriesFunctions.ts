@@ -6,10 +6,10 @@ export type TSortRule = "asc" | "desc";
 export type TypeSort = "new" | "rating" | "expensive_cheap" | "cheap_expensive";
 
 export interface ISearchQueries {
-  page: number;
-  limit: number;
-  min: number | null;
-  max: number | null;
+  page?: number;
+  limit?: number;
+  min?: number | null;
+  max?: number | null;
   categories: string[];
   tags: string[];
   searchByName: string

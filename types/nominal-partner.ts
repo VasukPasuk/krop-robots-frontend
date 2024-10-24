@@ -1,4 +1,4 @@
-import {Image} from "@/types/image.type";
+import {IImage} from "@/types/image.type";
 
 export interface NominalPartner {
   id: number;
@@ -7,5 +7,5 @@ export interface NominalPartner {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  logo: Image;
+  logo: IImage;
 }
