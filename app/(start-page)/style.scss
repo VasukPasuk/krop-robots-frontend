@@ -1,0 +1,44 @@
+section {
+  @apply max-w-[1300px] p-4 w-full mx-auto mb-16;
+}
+
+.common_text {
+  @apply md:text-lg text-base font-light;
+}
+
+.title_text {
+  @apply md:text-4xl text-2xl font-bold;
+}
+
+.subtitle_text {
+  @apply md:text-2xl text-lg font-normal;
+}
+
+img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
+
+.hover-image-effect {
+  @apply transition-transform duration-500 ease-in-out;
+  &:hover {
+    @apply scale-105;
+  }
+}
+
+.track-wrapper {
+  @apply flex w-full flex-col lg:w-1/2 overflow-hidden rounded;
+  .track {
+    @apply grid w-full transition-transform duration-500 ease-in-out;
+    grid-template-columns: repeat(5, 100%);
+    grid-auto-rows: 650px;
+
+    .track-item {
+      @apply overflow-hidden rounded relative;
+      img {
+        @apply w-full h-full object-cover  overflow-hidden rounded;
+      }
+    }
+  }
+}
