@@ -20,7 +20,7 @@ function ShopToolbar() {
       className="h-12 shadow fixed top-16 w-full flex items-center justify-between px-6 bg-white dark:bg-blue-900 z-50">
       <div>
         {
-          (pathnames.length === 4) && (
+          (pathnames.length >= 4) && (
             <Link href={"/shop"} className="font-light">
               Повернутися до товарів
             </Link>

@@ -9,7 +9,7 @@ export default class ProductsService {
   static URL: string = "/products"
 
   static async getMany(
-    {categories = [], max = null, tags = [], min = null, searchByName, partner}: Partial<ISearchQueries>
+    {categories = [], max = null, tags = [], min = null, searchByName, partner, page = 1, limit}: Partial<ISearchQueries>
   ) {
 
 
@@ -44,6 +44,10 @@ export default class ProductsService {
           }
         } : undefined
       },
+      pagination: {
+        pageSize: limit,
+        page: page,
+      }
     }, {skipNulls: true, allowEmptyArrays: false, arrayFormat: "repeat", encode: false})
 
     return await axiosBasic.get<ApiResponseMultiple<IProduct[]>>(`${this.URL}?${searchQuery}`)

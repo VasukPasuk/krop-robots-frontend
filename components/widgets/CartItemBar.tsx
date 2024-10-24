@@ -5,10 +5,10 @@ import {decreaseItemAmount, deleteItem, ICartItem, increaseItemAmount, setItemAm
 import {Input} from "@/components/ui/input";
 import {useAppDispatch} from "@/store/hooks";
 import Image from "next/image"
-import { FaTrash } from "react-icons/fa";
-import { toast } from "react-toastify";
+import {FaTrash} from "react-icons/fa";
+import {toast} from "react-toastify";
 
-export default function CartItemBar ({item}: {item: ICartItem}) {
+export default function CartItemBar({item}: { item: ICartItem }) {
   const dispatch = useAppDispatch()
   return (
     <div className="px-4 py-4 rounded shadow flex flex-col gap-y-4">
@@ -29,13 +29,12 @@ export default function CartItemBar ({item}: {item: ICartItem}) {
       </h1>
       <div className="flex justify-between items-center">
         <div className="flex gap-x-2 items-center justify-center">
-          <MyButton
-            className="text-xl w-4 h-8 dark:hover:bg-green-600"
-            variant="outline"
+          <div
+            className="text-xl rounded transition-colors duration-300 select-none ease-out w-8 h-8 dark:hover:bg-green-600 text-center"
             onClick={() => dispatch(increaseItemAmount({key: item.key}))}
           >
             +
-          </MyButton>
+          </div>
           <Input
             type="number" value={item.quantity}
             className="w-[12ch] text-center py-0"
@@ -46,13 +45,12 @@ export default function CartItemBar ({item}: {item: ICartItem}) {
             max={999}
             min={1}
           />
-          <MyButton
-            className="text-xl w-4 h-8 dark:hover:bg-red-400"
-            variant="outline"
+          <div
+            className="text-xl rounded transition-colors duration-300 select-none ease-out text-center w-8 h-8 dark:hover:bg-red-400"
             onClick={() => dispatch(decreaseItemAmount({key: item.key}))}
           >
             -
-          </MyButton>
+          </div>
         </div>
         <div
           className="text-red-700 cursor-pointer"

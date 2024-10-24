@@ -28,9 +28,6 @@ function ProductPage({data, colors}: ProductPageProps) {
 
   const dispatch = useAppDispatch();
 
-  const test = useAppSelector(state => state.cart);
-  console.log(test)
-
   const [config, setConfig] = useState<{
     plastic: PlasticType;
     variant: IVariant;
@@ -183,7 +180,8 @@ function ProductPage({data, colors}: ProductPageProps) {
                       color: config.color,
                       plastic: config.plastic,
                       type: config.variant.type,
-                      product: data
+                      product: data,
+                      variant: config.variant,
                     }))
                     toast.success("Товар додано до вашого кошику!")
                   }}

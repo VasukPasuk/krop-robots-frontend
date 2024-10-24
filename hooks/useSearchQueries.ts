@@ -21,6 +21,7 @@ export function useSearchQueries() {
     min: Number(getQueryParam("min", null)),
     max: Number(getQueryParam("max", null)),
     searchByName: getQueryParam("searchByName", ""),
+    order: getQueryParam("order", 'asc'),
     query
   };
 }

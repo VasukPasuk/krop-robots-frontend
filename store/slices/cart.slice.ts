@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IColor, IProduct, VariantType } from "@/types";
+import {IColor, IProduct, IVariant, VariantType} from "@/types";
 import { PlasticType } from "@/constants/plastic";
 
 export interface ICartItem {
@@ -10,6 +10,7 @@ export interface ICartItem {
   color: IColor;
   plastic: PlasticType;
   key: string;
+  variant: IVariant;
 }
 
 export interface ISliceState {

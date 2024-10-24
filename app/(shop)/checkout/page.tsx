@@ -16,13 +16,16 @@ import {cn} from "@/lib/utils";
 import * as zod from "zod";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import OrdersService from "@/services/orders.service";
+import { toast } from "react-toastify";
 
 type DeliveryUnion = "Укрпошта" | "Нова пошта" | "Кур'єром Нової пошти"
 type PaymentUnion = "Повна оплата" | "Рахунок для юридичних осіб"
 
 type CheckoutConfigType = {
-  delivery: "Укрпошта" | "Нова пошта" | "Кур'єром Нової пошти" | null
-  payment: "Повна оплата" | "Рахунок для юридичних осіб" | null
+  delivery_type: "Укрпошта" | "Нова пошта" | "Кур'єром Нової пошти" | null
+  payment_type: "Повна оплата" | "Рахунок для юридичних осіб" | null
 }
 
 
@@ -35,11 +38,11 @@ const schema = zod.object({
   house: zod.string().min(1).optional(),
   appartment: zod.string().min(1).optional(), // Квартира
   floor: zod.string().min(1).optional(), // Поверх
-  adress: zod.string().min(1).optional(),
+  department_adress: zod.string().min(1).optional(),
   locality: zod.string().min(1),
-  district: zod.string().min(1),
-  agent: zod.string().min(1).optional(),
-  edrpoy: zod.string().min(1).optional(),
+  region: zod.string().min(1),
+  legal_entity: zod.string().min(1).optional(),
+  EDRPOY_CODE: zod.string().min(1).optional(),
   comment: zod.string().min(1).optional()
 })
 
@@ -50,21 +53,45 @@ function CheckoutPage() {
   const form = useForm<Schema>({
     resolver: zodResolver(schema)
   })
-  const [options, setOptions] = useState({
-    delivery: null,
-    payment: null,
+  const [options, setOptions] = useState<CheckoutConfigType>({
+    delivery_type: null,
+    payment_type: null,
   })
 
-  const handleDelivery = (delivery: DeliveryUnion) => () => {
-    setOptions(prev => ({...prev, delivery}));
+  const handleDelivery = (delivery_type: DeliveryUnion) => () => {
+    setOptions(prev => ({...prev, delivery_type}));
   }
 
-  const handlePayment = (payment: PaymentUnion) => () => {
-    setOptions(prev => ({...prev, payment}));
+  const handlePayment = (payment_type: PaymentUnion) => () => {
+    setOptions(prev => ({...prev, payment_type}));
   }
 
-  const onSubmit: SubmitHandler<Schema> = (data) => {
-    console.log({...data, ...options})
+  const mutation = useMutation({
+    mutationFn: OrdersService.create,
+    onSuccess: () => {
+      toast.success("Дякуємо за Ваше замовлення!")
+    },
+    onError: () => {
+      toast.error("Упс! Щось сталося не так!")
+    },
+  })
+
+
+  const onSubmit: SubmitHandler<Required<Schema>> = (data) => {
+    mutation.mutate({
+      total_price: price,
+      total_items: amount,
+      ...data,
+      ...options,
+      items: items.map((cart_item) => ({
+        amount: cart_item.quantity,
+        price: cart_item.price * cart_item.quantity,
+        plastic: cart_item.plastic,
+        product: cart_item.product.id,
+        color: cart_item.color.id,
+        variant: cart_item.variant.id,
+      }))
+    })
   }
 
 
@@ -91,7 +118,7 @@ function CheckoutPage() {
           <div className="flex gap-x-2">
             <Controller name="locality" control={form.control}
                         render={({field}) => <Input {...field} required placeholder="Населений пункт"/>}/>
-            <Controller name="district" control={form.control}
+            <Controller name="region" control={form.control}
                         render={({field}) => <Input {...field} required placeholder="Область"/>}/>
           </div>
         </Block>
@@ -100,13 +127,13 @@ function CheckoutPage() {
             <AccordionItem value="item-1">
               <AccordionTrigger
                 className={cn("text-base text-start s480:text-lg rounded px-2", {
-                  "bg-black/5": options.delivery === "Нова пошта"
+                  "bg-black/5": options.delivery_type === "Нова пошта"
                 })}
                 onClick={handleDelivery("Нова пошта")}
               >Доставка Новою Поштою</AccordionTrigger>
               <AccordionContent>
                 <div className="p-2">
-                  <Controller name="adress" control={form.control}
+                  <Controller name="department_adress" control={form.control}
                               render={({field}) => <Input {...field} required placeholder="Адреса"/>}/>
                 </div>
               </AccordionContent>
@@ -114,7 +141,7 @@ function CheckoutPage() {
             <AccordionItem value="item-2">
               <AccordionTrigger
                 className={cn("text-base text-start s480:text-lg rounded px-2", {
-                  "bg-black/5": options.delivery === "Кур'єром Нової пошти"
+                  "bg-black/5": options.delivery_type === "Кур'єром Нової пошти"
                 })}
                 onClick={handleDelivery("Кур'єром Нової пошти")}
               >
@@ -137,7 +164,7 @@ function CheckoutPage() {
             <AccordionItem value="item-3">
               <AccordionTrigger
                 className={cn("text-base text-start s480:text-lg rounded px-2", {
-                  "bg-black/5": options.delivery === "Укрпошта"
+                  "bg-black/5": options.delivery_type === "Укрпошта"
                 })}
                 onClick={handleDelivery("Укрпошта")}
               >
@@ -145,7 +172,7 @@ function CheckoutPage() {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="p-2">
-                  <Controller name="adress" control={form.control}
+                  <Controller name="department_adress" control={form.control}
                               render={({field}) => <Input {...field} required placeholder="Адреса"/>}/>
                 </div>
               </AccordionContent>
@@ -158,7 +185,7 @@ function CheckoutPage() {
             <AccordionItem value="item-1">
               <AccordionTrigger
                 className={cn("text-base text-start s480:text-lg rounded px-2", {
-                  "bg-black/5": options.payment === "Повна оплата"
+                  "bg-black/5": options.payment_type === "Повна оплата"
                 })}
                 onClick={handlePayment("Повна оплата")}
               >
@@ -168,7 +195,7 @@ function CheckoutPage() {
             <AccordionItem value="item-2">
               <AccordionTrigger
                 className={cn("text-base text-start s480:text-lg rounded px-2", {
-                  "bg-black/5": options.payment === "Рахунок для юридичних осіб"
+                  "bg-black/5": options.payment_type === "Рахунок для юридичних осіб"
                 })}
                 onClick={handlePayment("Рахунок для юридичних осіб")}
               >
@@ -176,10 +203,10 @@ function CheckoutPage() {
               </AccordionTrigger>
               <AccordionContent>
                 <div className="p-2 flex gap-x-2">
-                  <Controller name="edrpoy" control={form.control}
+                  <Controller name="EDRPOY_CODE" control={form.control}
                               render={({field}) => <Input {...field} className="flex-1" required
                                                           placeholder="Код ЄДРПОУ"/>}/>
-                  <Controller name="agent" control={form.control}
+                  <Controller name="legal_entity" control={form.control}
                               render={({field}) => <Input {...field} className="flex-1" required
                                                           placeholder="Повна назва юридичної особи"/>}/>
                 </div>
@@ -189,7 +216,8 @@ function CheckoutPage() {
         </Block>
         <Block title={"Коментар"}>
           <Controller name="comment" control={form.control}
-                      render={({field}) => <Textarea {...field} rows={8} defaultValue={' '} placeholder="Коментар..."/>}/>
+                      render={({field}) => <Textarea {...field} rows={8} defaultValue={' '}
+                                                     placeholder="Коментар..."/>}/>
 
         </Block>
         <Block title={"Товари до замовлення"}>

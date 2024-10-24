@@ -6,8 +6,7 @@ import {
   Pagination,
   PaginationContent,
   PaginationItem,
-  PaginationLink, PaginationNext,
-  PaginationPrevious
+  PaginationLink,
 } from "@/components/ui/pagination";
 import useSearchQueriesFunctions from "@/hooks/useSearchQueriesFunctions";
 import {useSearchQueries} from "@/hooks/useSearchQueries";
@@ -17,8 +16,10 @@ import { useEffect } from "react";
 import {Skeleton} from "@/components/ui/skeleton";
 
 
+const AMOUNT_OF_ITEMS_TO_SEE_IN_CATALOG = 15
+
 function Catalog() {
-  const {query, categories, tags, max, min, searchByName} = useSearchQueries()
+  const {query, categories, tags, max, min, searchByName, page} = useSearchQueries()
   const {appendSearchQuery} = useSearchQueriesFunctions();
 
   const path = usePathname().split("/");
@@ -33,7 +34,9 @@ function Catalog() {
       tags: tags,
       categories: categories,
       searchByName: searchByName,
-      partner: partner
+      partner: partner,
+      limit: AMOUNT_OF_ITEMS_TO_SEE_IN_CATALOG,
+      page: page
     }),
     select: (data) => data.data,
   })
@@ -49,7 +52,7 @@ function Catalog() {
       >
         {
           [...Array(15)].map((_, i) => (
-            <Skeleton/>
+            <Skeleton key={i}/>
           ))
         }
       </div>
@@ -71,26 +74,20 @@ function Catalog() {
         className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[350px] s480:auto-rows-[300px] w-full">
         {
           data.data.map((product) => (
-            <CatalogCard product={product}/>
+            <CatalogCard key={product.name} product={product}/>
           ))
         }
       </div>
       <div>
         <Pagination>
           <PaginationContent>
-            <PaginationItem>
-              <PaginationPrevious href="#"/>
-            </PaginationItem>
             {
-              [...Array(data.meta.pagination.page)].map((_, idx) => (
-                <PaginationItem onClick={() => appendSearchQuery({page: idx})}>
+              [...Array(Math.ceil(data.meta.pagination.total / AMOUNT_OF_ITEMS_TO_SEE_IN_CATALOG))].map((_, idx) => (
+                <PaginationItem key={idx} onClick={() => appendSearchQuery({page: idx})}>
                   <PaginationLink>{++idx}</PaginationLink>
                 </PaginationItem>
               ))
             }
-            <PaginationItem>
-              <PaginationNext/>
-            </PaginationItem>
           </PaginationContent>
         </Pagination>
       </div>

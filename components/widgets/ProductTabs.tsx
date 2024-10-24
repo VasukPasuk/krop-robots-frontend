@@ -13,6 +13,7 @@ interface IProductTabsProps {
 
 function ProductTabs({options, onChangeTab}: IProductTabsProps) {
   const [activeTab, setActiveTab] = useState<string>(options[0].value)
+
   useEffect(() => {
     if (!!onChangeTab) {
       onChangeTab(activeTab)
@@ -27,7 +28,6 @@ function ProductTabs({options, onChangeTab}: IProductTabsProps) {
             className="
               data-[active=true]:bg-gray-100 transition-colors duration-300 ease-in hover:data-[active=true]:bg-gray-200 rounded py-1 px-3 cursor-pointer hover:bg-blue-100
               dark:bg-white/5 dark:data-[active=true]:bg-white/10 dark:hover:data-[active=true]:bg-white/15 dark:hover:bg-white/10
-
             "
             data-active={activeTab === item.value}
             onClick={() => {

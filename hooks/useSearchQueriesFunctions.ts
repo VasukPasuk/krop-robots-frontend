@@ -14,6 +14,7 @@ export interface ISearchQueries {
   tags: string[];
   searchByName: string
   partner?:string | null
+  sort: "asc" | "desc"
 }
 
 interface ISearchQueriesOption extends Partial<ISearchQueries> {}

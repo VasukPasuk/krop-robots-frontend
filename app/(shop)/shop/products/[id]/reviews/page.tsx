@@ -1,7 +1,7 @@
+import ReviewsPage from "@/components/pages/Product/ReviewsPage";
+
 export default function Page() {
   return (
-    <div>
-      2
-    </div>
+    <ReviewsPage/>
   )
 }

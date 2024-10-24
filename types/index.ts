@@ -2,7 +2,16 @@ import {IImage} from "@/types/image.type";
 
 export type VariantType = "Стандартний" | "Великий" | "Малий";
 
-
+export interface IReview {
+  id: number;
+  documentId: string;
+  text: string;
+  name: string;
+  surname: string;
+  createdAt: string;
+  updatedAt: string;
+  publishedAt: string;
+}
 
 export interface INewsItem {
   id: number;
