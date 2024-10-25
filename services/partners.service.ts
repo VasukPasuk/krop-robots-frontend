@@ -11,10 +11,10 @@ export default class PartnersService {
   }
 
   static async getManyNominalPartners() {
-    return await axiosBasic.get<ApiResponseMultiple<IPartner[]>>(`/nominal-partners?populate=logo`)
+    return await axiosBasic.get<ApiResponseMultiple<IPartner>>(`/nominal-partners?populate=logo`)
   }
 
   static async getManyShopPartners() {
-    return await axiosBasic.get<ApiResponseMultiple<IShopPartner[]>>(this.URL + "?populate=logo")
+    return await axiosBasic.get<ApiResponseMultiple<IShopPartner>>(this.URL + "?populate=logo")
   }
 }

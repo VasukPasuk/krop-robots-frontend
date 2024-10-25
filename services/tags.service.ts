@@ -7,6 +7,6 @@ export default class TagsService {
   static URL: string = "/tags"
 
   static async getMany(query?: string) {
-    return await axiosBasic.get<ApiResponseMultiple<ITag[]>>(`${this.URL}${!!query ? `?${query}` : ""}`)
+    return await axiosBasic.get<ApiResponseMultiple<ITag>>(`${this.URL}${!!query ? `?${query}` : ""}`)
   }
 }

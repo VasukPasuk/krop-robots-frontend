@@ -50,7 +50,7 @@ export default class ProductsService {
       }
     }, {skipNulls: true, allowEmptyArrays: false, arrayFormat: "repeat", encode: false})
 
-    return await axiosBasic.get<ApiResponseMultiple<IProduct[]>>(`${this.URL}?${searchQuery}`)
+    return await axiosBasic.get<ApiResponseMultiple<IProduct>>(`${this.URL}?${searchQuery}`)
   }
 
 }

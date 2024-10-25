@@ -14,12 +14,12 @@ export default function CartItemBar({item}: { item: ICartItem }) {
     <div className="px-4 py-4 rounded shadow flex flex-col gap-y-4">
       <div className=" flex flex-row gap-x-2">
         <div className="w-24 s480:w-32 h-28 s480:h-24 relative rounded overflow-hidden shrink-0">
-          <Image src={getImageSrc(item.product.images[0].url)} alt={item.product.images[0].alternativeText} fill/>
+          <Image src={getImageSrc(item.product.attributes.images.data[0].attributes.url)} alt={item.product.attributes.images.data[0].attributes.alternativeText} fill/>
         </div>
         <div className="w-full shrink-0">
-          <h1 className="font-bold text-xl line-clamp-2">{item.product.name}</h1>
-          <h2 className="text-sm s420:text-base">{item.product.category.name}</h2>
-          <h2 className="text-sm s420:text-base">Колір: {item.color.name}</h2>
+          <h1 className="font-bold text-xl line-clamp-2">{item.product.attributes.name}</h1>
+          <h2 className="text-sm s420:text-base">{item.product.attributes.category.data.attributes.name}</h2>
+          <h2 className="text-sm s420:text-base">Колір: {item.color.attributes.name}</h2>
           <h2 className="text-sm s420:text-base">Варіант: {item.type}</h2>
           <h2 className="text-sm s420:text-base">Пластик: {item.plastic}</h2>
         </div>

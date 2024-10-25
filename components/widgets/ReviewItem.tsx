@@ -1,9 +1,10 @@
 import {IReview} from "@/types";
 import { LuUserCircle } from "react-icons/lu";
 import formatDate from "@/features/formatDate";
+import {ResponseItem} from "@/types/api-response.type";
 
-function ReviewItem({data}: {data: IReview}) {
-  const {name, surname, text, createdAt} = data;
+function ReviewItem(data: ResponseItem<IReview>) {
+  const {name, surname, text, createdAt} = data.attributes;
   return (
     <li className="flex flex-col gap-y-2 justify-start p-4 shadow rounded dark:bg-white/10">
       <div className="flex flex-row justify-between items-center">

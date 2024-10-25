@@ -1,16 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {IColor, IProduct, IVariant, VariantType} from "@/types";
 import { PlasticType } from "@/constants/plastic";
+import {ResponseItem} from "@/types/api-response.type";
 
 export interface ICartItem {
-  product: IProduct;
+  product: ResponseItem<IProduct>;
   type: VariantType;
   quantity: number;
   price: number;
-  color: IColor;
+  color: ResponseItem<IColor>;
   plastic: PlasticType;
   key: string;
-  variant: IVariant;
+  variant: ResponseItem<IVariant>;
 }
 
 export interface ISliceState {
@@ -50,7 +51,7 @@ export const cartSlice = createSlice({
     },
     addItem: (state, action: PayloadAction<Omit<ICartItem, 'key'>>) => {
       const { type, plastic, color, product, quantity } = action.payload;
-      const key = type + plastic + color.name + product.name;
+      const key = type + plastic + color.attributes.name + product.attributes.name;
 
       const existingItem = state.items.find((it) => it.key === key);
       if (!existingItem) {

@@ -1,16 +1,10 @@
 import {axiosBasic} from "@/config/axios";
-import {PaginationMeta} from "@/types/api-response.type";
+import {ApiResponseMultiple} from "@/types/api-response.type";
 import {IImage} from "@/types/image.type";
 
 
-interface DataResponse {
-  data: IMember[];
-  meta: PaginationMeta;
-}
 
 interface IMember {
-  id: number;
-  documentId: string;
   name: string;
   surname: string;
   occupation: string;
@@ -25,6 +19,6 @@ export default class MembersService {
   static URL: string = "/members"
 
   static async getMany() {
-    return await axiosBasic.get<DataResponse>(`/members?populate=avatar`)
+    return await axiosBasic.get<ApiResponseMultiple<IMember>>(`/members?populate=avatar`)
   }
 }

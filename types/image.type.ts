@@ -1,28 +1,32 @@
-export interface IImage {
+export interface IRootImage {
   id: number;
-  documentId: string;
-  name: string;
-  alternativeText: string | null;
-  caption: string | null;
-  width: number;
-  height: number;
-  formats: {
-    large: IImageFormat;
-    small: IImageFormat;
-    medium: IImageFormat;
-    thumbnail: IImageFormat;
+  attributes: {
+    name: string;
+    alternativeText: string | null;
+    caption: string | null;
+    width: number;
+    height: number;
+    formats: {
+      large: IImageFormat;
+      small: IImageFormat;
+      medium: IImageFormat;
+      thumbnail: IImageFormat;
+    };
+    hash: string;
+    ext: string;
+    mime: string;
+    size: number;
+    url: string;
+    previewUrl: string | null;
+    provider: string;
+    provider_metadata: any | null; // Replace 'any' with a more specific type if known
+    createdAt: string; // ISO 8601 date string
+    updatedAt: string; // ISO 8601 date string
   };
-  hash: string;
-  ext: string;
-  mime: string;
-  size: number;
-  url: string;
-  previewUrl: string | null;
-  provider: string;
-  provider_metadata: Record<string, any> | null;
-  createdAt: string;
-  updatedAt: string;
-  publishedAt: string;
+}
+
+export interface IImage {
+  data: IRootImage
 }
 
 export interface IImageFormat {

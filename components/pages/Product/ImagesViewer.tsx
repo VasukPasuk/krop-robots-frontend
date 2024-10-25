@@ -1,14 +1,15 @@
 "use client"
 
-import {IImage} from "@/types/image.type";
+import {IImage, IRootImage} from "@/types/image.type";
 import {Dialog, DialogContent} from "@/components/ui/dialog";
 import getImageSrc from "@/features/getImageSrc";
 import Image from "next/image"
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 import { useState } from "react";
+import {ResponseItem} from "@/types/api-response.type";
 
 interface ImagesViewerProps {
-  images: IImage[];
+  images: {data: IRootImage[]};
   open: boolean
   onCloseModal: () => void
 }
@@ -17,10 +18,10 @@ function ImagesViewer({images, open, onCloseModal}: ImagesViewerProps) {
   const [imageIndex, setImageIndex] = useState<number>(0)
 
   const moveRight = () => {
-    setImageIndex(prev => imageIndex === images.length - 1 ? 0 : ++prev)
+    setImageIndex(prev => imageIndex === images.data.length - 1 ? 0 : ++prev)
   }
   const moveLeft = () => {
-    setImageIndex(prev => imageIndex === 0 ? images.length - 1 : --prev)
+    setImageIndex(prev => imageIndex === 0 ? images.data.length - 1 : --prev)
   }
   return (
     <Dialog open={open}>
@@ -35,9 +36,9 @@ function ImagesViewer({images, open, onCloseModal}: ImagesViewerProps) {
                 transform: `translate(-${imageIndex * 100}%)`
               }}
             >
-              {images.map((img) => (
+              {images.data.map((img) => (
                 <div className="shrink-0 overflow-hidden rounded relative w-full h-full">
-                  <Image src={getImageSrc(img.url)} alt={img.alternativeText} fill className="object-cover"/>
+                  <Image src={getImageSrc(img.attributes.url)} alt={img.attributes.alternativeText} fill className="object-cover"/>
                 </div>
               ))}
             </div>

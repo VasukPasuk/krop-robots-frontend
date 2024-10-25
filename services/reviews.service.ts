@@ -7,7 +7,7 @@ import {IReview} from "@/types";
 interface ISearchQueries {
   limit?: number;
   page?: number;
-  productId: string;
+  id: number;
   order?: "asc" | "desc"
 }
 
@@ -15,14 +15,14 @@ export default class ReviewsService {
   static URL: string = "/reviews"
 
   static async getManyOfProduct(
-    {page = 1, limit, productId, order = 'asc'}: Partial<ISearchQueries>
+    {page = 1, limit, id, order = 'asc'}: Partial<ISearchQueries>
   ) {
     const searchQuery = qs.stringify({
       populate: ['product'],
       filters: {
         product: {
-          documentId: {
-            $contains: productId
+          id: {
+            $eq: id
           },
         }
       },
@@ -33,7 +33,7 @@ export default class ReviewsService {
       }
     }, {skipNulls: true, allowEmptyArrays: false, arrayFormat: "repeat", encode: false})
 
-    return await axiosBasic.get<ApiResponseMultiple<IReview[]>>(`${this.URL}?${searchQuery}`)
+    return await axiosBasic.get<ApiResponseMultiple<IReview>>(`${this.URL}?${searchQuery}`)
   }
 
   static async create(createReviewDto: Pick<IReview, "text" | "name" | "surname"> & {productId: string}) {

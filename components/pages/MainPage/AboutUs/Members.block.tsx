@@ -62,7 +62,7 @@ function MembersBlock() {
   )
   if (isError || !data) return <div>Error loading members</div>;
 
-  const members: Member[] = data.data;
+  const members = data.data;
 
   return (
     <div className="flex w-full bg-black">
@@ -85,15 +85,15 @@ function MembersBlock() {
               >
 
                <div className="w-64 h-96 relative rounded overflow-hidden border-8 border-gray-400/25">
-                 <Image src={getImageSrc(member.avatar.url)} alt={member.name} fill/>
+                 <Image src={getImageSrc(member.attributes.avatar.data.attributes.url)} alt={member.attributes.name} fill/>
                </div>
 
                 <h1 className="text-center text-wrap text-2xl font-semibold">
-                  {member.name} {member.surname}
+                  {member.attributes.name} {member.attributes.surname}
                 </h1>
-                <h2 className="text-center text-wrap text-xl">{member.occupation}</h2>
+                <h2 className="text-center text-wrap text-xl">{member.attributes.occupation}</h2>
                 <h3 className="text-center text-wrap font-light flex items-center justify-center max-w-[96ch]">
-                  {member.quote}
+                  {member.attributes.quote}
                 </h3>
               </li>
             ))}

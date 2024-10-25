@@ -1,15 +1,15 @@
 "use client";
 
 import Image from "next/image";
-import { useQuery } from "@tanstack/react-query";
+import {useQuery} from "@tanstack/react-query";
 import PartnersService from "@/services/partners.service";
 import getImageSrc from "@/features/getImageSrc";
 import {IImage} from "@/types/image.type";
 import {Skeleton} from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
+import {cn} from "@/lib/utils";
 
 function PartnersBlock() {
-  const { data, isLoading, isError } = useQuery({
+  const {data, isLoading, isError} = useQuery({
     queryKey: ["nominals"],
     queryFn: () => PartnersService.getManyNominalPartners(),
     select: (data) => data.data,
@@ -27,16 +27,15 @@ function PartnersBlock() {
     return null;
   }
 
-  const partners = data;
-
-  const getLogoWidth = (logo: IImage) => logo.formats.small?.width ;
+  const partners = data.data;
+  const getLogoWidth = (logo: IImage) => logo.data.attributes.formats.small?.width;
 
   return (
     <section className="flex flex-col gap-y-8">
       <h2 className="text-3xl">Наші партнери</h2>
       <div className="flex flex-row gap-x-4 overflow-x-auto">
         <ul className="w-full flex flex-col sm:flex-row justify-start items-center gap-y-2 sm:gap-x-2 flex-wrap">
-          {partners.data.map((partner, i) => (
+          {partners.map((partner, i) => (
             <li
               key={partner.id}
               className={cn(`rounded shrink-0 sm:h-28 flex justify-center items-center relative`, {
@@ -47,11 +46,11 @@ function PartnersBlock() {
               })}
             >
               <Image
-                src={getImageSrc(partner.logo.formats.small.url)}
-                alt={partner.logo.alternativeText || `Лого партнера: ${partner.name}`}
-                width={getLogoWidth(partner.logo)}
+                src={getImageSrc(partner.attributes.logo.data.attributes.formats.small.url)}
+                alt={partner.attributes.logo.data.attributes.alternativeText || `Лого партнера: ${partner.attributes.name}`}
+                width={getLogoWidth(partner.attributes.logo)}
                 height={200}
-                title={partner.name}
+                title={partner.attributes.name}
               />
             </li>
           ))}

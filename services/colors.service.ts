@@ -7,6 +7,6 @@ export default class ColorsService {
   static URL: string = "/colors"
 
   static async getMany(query?: string) {
-    return await axiosBasic.get<ApiResponseMultiple<IColor[]>>(`${this.URL}${!!query ? `?${query}` : ""}`)
+    return await axiosBasic.get<ApiResponseMultiple<IColor>>(`${this.URL}${!!query ? `?${query}` : ""}`)
   }
 }

@@ -34,7 +34,7 @@ function CatalogPartnersList() {
     )
   }
 
-  const getLogoWidth = (logo: IImage) => logo.formats.small?.width / 2.75 ;
+  const getLogoWidth = (logo: IImage) => logo.data.attributes.formats.small?.width / 2.75 ;
 
   return (
     <div className="flex items-center justify-start overflow-x-auto max-w-[1400px] mx-auto w-full">
@@ -45,14 +45,14 @@ function CatalogPartnersList() {
             className={cn(`shrink-0 rounded sm:h-16 flex justify-center items-center relative`, {
               'sm:h-32': i === 1
             })}
-            href={`/shop/${partner.eng_name}`}
+            href={`/shop/${partner.attributes.eng_name}`}
           >
             <Image
-              src={getImageSrc(partner.logo.formats.small.url)}
-              alt={partner.logo.alternativeText || `Лого партнера: ${partner.urk_name}`}
-              width={getLogoWidth(partner.logo)}
+              src={getImageSrc(partner.attributes.logo.data.attributes.formats.small.url)}
+              alt={partner.attributes.logo.data.attributes.alternativeText || `Лого партнера: ${partner.attributes.urk_name}`}
+              width={getLogoWidth(partner.attributes.logo)}
               height={150}
-              title={partner.eng_name}
+              title={partner.attributes.eng_name}
             />
           </Link>
         ))}

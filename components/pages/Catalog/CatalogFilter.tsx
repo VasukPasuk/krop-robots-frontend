@@ -139,12 +139,12 @@ function CatalogFilter() {
           {
             categories.data.map((category) => (
               <div className="flex items-center justify-start gap-x-2">
-                <Checkbox id={category.documentId} value={category.name}
-                          onCheckedChange={(checked) => handleCategories(checked, category.name)}/>
+                <Checkbox id={category.attributes.name} value={category.attributes.name}
+                          onCheckedChange={(checked) => handleCategories(checked, category.attributes.name)}/>
                 <label
-                  htmlFor={category.documentId}
+                  htmlFor={category.attributes.name}
                 >
-                  {category.name}
+                  {category.attributes.name}
                 </label>
               </div>
             ))
@@ -154,12 +154,12 @@ function CatalogFilter() {
           {
             tags.data.map((tag) => (
               <div className="flex items-center justify-start gap-x-2">
-                <Checkbox id={tag.documentId} value={tag.name}
-                          onCheckedChange={(checked) => handleTags(checked, tag.name)}/>
+                <Checkbox id={tag.attributes.name} value={tag.attributes.name}
+                          onCheckedChange={(checked) => handleTags(checked, tag.attributes.name)}/>
                 <label
-                  htmlFor={tag.documentId}
+                  htmlFor={tag.attributes.name}
                 >
-                  {tag.name}
+                  {tag.attributes.name}
                 </label>
               </div>
             ))

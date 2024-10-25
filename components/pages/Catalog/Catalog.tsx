@@ -12,7 +12,7 @@ import useSearchQueriesFunctions from "@/hooks/useSearchQueriesFunctions";
 import {useSearchQueries} from "@/hooks/useSearchQueries";
 import Image from "next/image"
 import {usePathname} from "next/navigation";
-import { useEffect } from "react";
+import {useEffect} from "react";
 import {Skeleton} from "@/components/ui/skeleton";
 
 
@@ -68,13 +68,30 @@ function Catalog() {
     </div>
   );
 
+
+  const products = data.data
+
+
   return (
     <div className="flex flex-col gap-y-4 w-full">
       <div
         className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[350px] s480:auto-rows-[300px] w-full">
         {
-          data.data.map((product) => (
-            <CatalogCard key={product.name} product={product}/>
+          products.map((product) => (
+            <CatalogCard
+              key={product.attributes.name}
+              product={{
+                data: product,
+                meta: {
+                  pagination: {
+                    page: 0,
+                    pageSize: 0,
+                    pageCount: 0,
+                    total: 0
+                  }
+                }
+              }}
+            />
           ))
         }
       </div>

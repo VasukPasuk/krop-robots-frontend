@@ -50,7 +50,7 @@ function ReviewsPage() {
       ReviewsService.getManyOfProduct({
         limit: AMOUNT_OF_ITEMS_TO_SEE_IN_REVIEWS_PAGE,
         page: page,
-        productId: param as string,
+        id: Number(param),
         order: order,
       }),
     select: (data) => data.data,
@@ -111,7 +111,7 @@ function ReviewsPage() {
         <Separator />
         <ul className="flex flex-col gap-y-8">
           {query.data.data.map((item) => (
-            <ReviewItem key={item.id} data={item} />
+            <ReviewItem key={item.id} attributes={item.attributes} id={item.id}/>
           ))}
         </ul>
         <Pagination>

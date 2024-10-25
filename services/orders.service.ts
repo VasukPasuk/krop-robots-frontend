@@ -35,7 +35,7 @@ export default class OrdersService {
   static URL: string = "/orders"
 
   static async create({items, ...order}: CreateOrderDto & {items: OrderItemDto[]}) {
-    return axiosBasic.post(this.URL, {
+    return axiosBasic.post("/orders", {
       data: {
         ...order,
         items: items.map((item) => ({

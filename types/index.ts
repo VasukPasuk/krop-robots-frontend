@@ -1,10 +1,13 @@
-import {IImage} from "@/types/image.type";
+import {IImage, IImageFormat, IRootImage} from "@/types/image.type";
+import {ResponseItem} from "@/types/api-response.type";
 
 export type VariantType = "Стандартний" | "Великий" | "Малий";
 
+
+
+
+
 export interface IReview {
-  id: number;
-  documentId: string;
   text: string;
   name: string;
   surname: string;
@@ -14,20 +17,18 @@ export interface IReview {
 }
 
 export interface INewsItem {
-  id: number;
-  documentId: string;
   title: string;
   text: string;
   main_photo: IImage;
-  tag: INewsTag
+  tag: {
+    data: ResponseItem<INewsTag>
+  }
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
 }
 
 export interface INewsTag {
-  id: number;
-  documentId: string;
   name: string;
   createdAt: string;
   updatedAt: string;
@@ -36,8 +37,6 @@ export interface INewsTag {
 
 
 export interface IVariant {
-  id: number;
-  documentId: string;
   type: VariantType;
   height: number;
   width: number;
@@ -50,8 +49,6 @@ export interface IVariant {
 }
 
 export interface ITag {
-  id: number;
-  documentId: string;
   name: string;
   description: string;
   createdAt: string;
@@ -60,8 +57,6 @@ export interface ITag {
 }
 
 export interface IProduct {
-  id: number;
-  documentId: string;
   name: string;
   published: boolean;
   popular: boolean;
@@ -71,16 +66,24 @@ export interface IProduct {
   updatedAt: string;
   publishedAt: string;
   description: string;
-  tags?: ITag[];
-  images: IImage[];
-  variants?: IVariant[];
-  category: ICategory
-  partner: IShopPartner
+  tags?: {
+    data: ResponseItem<ITag>[]
+  };
+  images: {
+    data: IRootImage[]
+  };
+  variants?: {
+    data: ResponseItem<IVariant>[]
+  };
+  category: {
+    data: ResponseItem<ICategory>
+  }
+  partner: {
+    data: ResponseItem<IPartner>
+  }
 }
 
 export interface IPartner {
-  id: number;
-  documentId: string;
   name: string;
   createdAt: string;
   updatedAt: string;
@@ -89,8 +92,6 @@ export interface IPartner {
 }
 
 export interface IShopPartner {
-  id: number;
-  documentId: string;
   urk_name: string;
   eng_name: string;
   logo: IImage;
@@ -101,8 +102,6 @@ export interface IShopPartner {
 
 
 export interface ICategory {
-  id: number;
-  documentId: string;
   name: string;
   description: string;
   createdAt: string;
@@ -111,8 +110,6 @@ export interface ICategory {
 }
 
 export interface IColor {
-  id: number;
-  documentId: string;
   color: string;
   name: string;
   createdAt: string;

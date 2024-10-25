@@ -51,7 +51,7 @@ function NewsPage() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 auto-rows-auto gap-4">
         {
           newsQuery.data.data.map((newsItem) => (
-            <NewsItem data={newsItem} key={newsItem.title}/>
+            <NewsItem data={newsItem} key={newsItem.attributes.title}/>
           ))
         }
       </div>

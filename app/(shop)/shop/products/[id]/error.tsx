@@ -6,7 +6,7 @@ export default function Error({error, reset}: {
 }) {
   return (
     <div>
-      1
+      {error.message}
     </div>
   )
 }

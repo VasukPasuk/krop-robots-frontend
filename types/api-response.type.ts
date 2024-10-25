@@ -2,8 +2,16 @@ export interface ApiResponse<T> {
   data: T;
 }
 
+export interface ResponseItem<T>  { id: number, attributes: T }
+
+
 export interface ApiResponseMultiple<T> {
-  data: T;
+  data: ResponseItem<T>[];
+  meta: PaginationMeta;
+}
+
+export interface ApiResponseSingle<T> {
+  data: ResponseItem<T>;
   meta: PaginationMeta;
 }
 
