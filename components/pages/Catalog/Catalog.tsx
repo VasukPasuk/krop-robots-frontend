@@ -48,7 +48,7 @@ function Catalog() {
   if (isLoading) return (
     <div className="flex flex-col gap-y-4 w-full">
       <div
-        className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[350px] s480:auto-rows-[300px] w-full"
+        className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[400px] s480:auto-rows-[350px] w-full"
       >
         {
           [...Array(15)].map((_, i) => (
@@ -75,7 +75,7 @@ function Catalog() {
   return (
     <div className="flex flex-col gap-y-4 w-full">
       <div
-        className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[350px] s480:auto-rows-[300px] w-full">
+        className="grid grid-cols-1 s480:grid-cols-2 min-[700px]:grid-cols-3 min-[1150px]:grid-cols-4 min-[1400px]:grid-cols-5 gap-4 auto-rows-[400px] s480:auto-rows-[350px] w-full">
         {
           products.map((product) => (
             <CatalogCard

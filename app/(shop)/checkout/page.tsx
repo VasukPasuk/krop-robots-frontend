@@ -1,6 +1,6 @@
 "use client"
 
-import {useAppSelector} from "@/store/hooks";
+import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {MyButton} from "@/components/ui/button";
 import {Input} from "@/components/ui/input";
 import {
@@ -16,9 +16,12 @@ import {cn} from "@/lib/utils";
 import * as zod from "zod";
 import {Controller, SubmitHandler, useForm} from "react-hook-form";
 import {zodResolver} from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import OrdersService from "@/services/orders.service";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
+import {deleteAllItems} from "@/store/slices/cart.slice";
+import {useRouter} from "next/navigation";
+import {redirectURL} from "@/features/urls";
 
 type DeliveryUnion = "Укрпошта" | "Нова пошта" | "Кур'єром Нової пошти"
 type PaymentUnion = "Повна оплата" | "Рахунок для юридичних осіб"
@@ -50,6 +53,9 @@ type Schema = zod.infer<typeof schema>
 
 function CheckoutPage() {
   const {price, amount, items} = useAppSelector(state => state.cart);
+  const dispatch = useAppDispatch()
+  const router = useRouter()
+
   const form = useForm<Schema>({
     resolver: zodResolver(schema)
   })
@@ -70,6 +76,8 @@ function CheckoutPage() {
     mutationFn: OrdersService.create,
     onSuccess: () => {
       toast.success("Дякуємо за Ваше замовлення!")
+      dispatch(deleteAllItems())
+      router.push(redirectURL.catalog)
     },
     onError: () => {
       toast.error("Упс! Щось сталося не так!")

@@ -38,7 +38,7 @@ function CatalogPartnersList() {
 
   return (
     <div className="flex items-center justify-start overflow-x-auto max-w-[1400px] mx-auto w-full">
-      <ul className="w-full flex flex-col sm:flex-row justify-start items-center gap-4  sm:h-40">
+      <ul className="w-full flex flex-col sm:flex-row justify-start items-start sm:items-center gap-4  sm:h-40">
         {partnersQuery.data.map((partner, i) => (
           <Link
             key={partner.id}

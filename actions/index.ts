@@ -7,5 +7,7 @@ export async function getOnePost(id: string) {
   const searchQuery = qs.stringify({
     populate: ['main_photo', 'tag'],
   })
-  return fetch(`${API_URL}/news/${id}?${searchQuery}`)
+  return fetch(`${API_URL}/news/${id}?${searchQuery}`, {
+    cache: "no-cache"
+  })
 }

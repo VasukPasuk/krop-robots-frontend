@@ -30,10 +30,3 @@
   }
 }
 
-.binary-number {
-  transition: 1s;
-  @apply text-gray-700 text-2xl hover:shadow-xl hover:text-amber-400 transition-colors  select-none;
-  &:hover {
-    text-shadow: 0 0 10px #0f0, 0 0 20px #0f0, 0 0 40px #0f0, 0 0 80px #0f0, 0 0 160px #0f0;
-  }
-}

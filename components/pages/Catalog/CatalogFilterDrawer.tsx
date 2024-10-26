@@ -15,8 +15,8 @@ function CatalogFilterDrawer({closeFn, open}: ICatalogFilterDrawerProps) {
   }
   return (
     <Sheet open={open}>
-      <SheetContent closeFn={closeFn} className="flex flex-col gap-y-4 backdrop-blur-md bg-black/50 w-full s480:w-96">
-       <div className="mt-6 text-white">
+      <SheetContent closeFn={closeFn} className="flex flex-col gap-y-4 dark:backdrop-blur-md dark:bg-black/50 w-full s480:w-96">
+       <div className="mt-6 dark:text-white">
          <CatalogFilter/>
        </div>
       </SheetContent>

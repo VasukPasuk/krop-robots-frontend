@@ -23,16 +23,16 @@ function CatalogCard({product}: IProps) {
       flex flex-col rounded overflow-hidden shadow hover:shadow-lg
       dark:bg-[#B8CFE0]/10 hover:-translate-y-[2.5%] transition-all duration-300 ease-in
      ">
-      <div className="relative w-full h-64 s:480:h-48">
+      <div className="shrink-0 flex-[2] s480:flex-[1.65] relative w-full h-52 s480:h-52">
         <Image alt={images.data[0].attributes.alternativeText} src={getImageSrc(images.data[0].attributes.url)} fill
                className="object-cover"/>
       </div>
-      <div className="flex flex-col gap-y-2 p-2">
+      <div className="shrink-0 flex-[1] s480:flex-[1] flex flex-col gap-y-2 p-2">
         <div className="flex flex-col">
-          <span className="text-xl line-clamp-2 font-semibold">{name}</span>
+          <span className="text-lg line-clamp-2 font-semibold">{name}</span>
           <span className="text-sm text-neutral-600 dark:text-white/70">{category.data.attributes.name}</span>
         </div>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center mt-auto">
           <span className="text-xl">
             ₴ {price} грн. / шт.
           </span>

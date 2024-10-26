@@ -32,10 +32,10 @@ function FeedbackFormBlock() {
   const mutate = useMutation({
     mutationFn: (data: ApiCreateFeedback) => FeedbackService.create(data),
     onError: () => {
-      toast.error("Невдача!!")
+      toast.error("Дані форми успішно відправлено!")
     },
     onSuccess: () => {
-      toast.success("Вдача!!")
+      toast.success("Щось сталося не так!")
     },
   })
 

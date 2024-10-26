@@ -65,7 +65,7 @@ function AboutUsBlock() {
           <div className="text-white bg-green-600 rounded py-4 px-8 flex flex-row justify-between items-center dark:bg-green-600/50">
             <div className="flex gap-x-4 items-center justify-center">
               <FaGraduationCap className="text-3xl" />
-              <h3 className="text-xl">Випускників навчання</h3>
+              <h3 className="text-xl">Випускників</h3>
             </div>
             <span className="text-2xl lg:text-4xl -translate-x-[100%]">
               <CountUp start={1} end={63} duration={3} delay={1}/>
@@ -121,11 +121,10 @@ function AboutUsBlock() {
         <ul className="flex items-center justify-center gap-x-4 p-4">
           {
             [...Array(CAROUSEL_LENGTH)].map((_, i) => (
-              <li className={clsx("rounded-full cursor-pointer transition-colors duration-300 ease-in-out w-3 h-3", {
+              <li key={i} className={clsx("rounded-full cursor-pointer transition-colors duration-300 ease-in-out w-3 h-3", {
                 "bg-neutral-500": i === carouselIndex,
                 "bg-neutral-300": i !== carouselIndex,
               })}
-                  key={i}
                   onClick={() => {
                     setCarouselIndex(i);
                   }}

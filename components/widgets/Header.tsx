@@ -15,9 +15,15 @@ interface IHeaderProps {
 }
 
 
-const IMAGES_DICTIONARY: {[key: string]: string} = {
-  shop: "/logo_shop_white_upper.png",
-  default: "/logo_white.png",
+const IMAGES_DICTIONARY: {[key: string]: {src: string, url: string}} = {
+  shop: {
+    src: "/logo_shop_white_upper.png",
+    url: "/shop"
+  },
+  default: {
+    src:  "/logo_white.png",
+    url: "/"
+  },
 }
 
 function Header({h_type = "default"}: IHeaderProps) {
@@ -37,10 +43,10 @@ function Header({h_type = "default"}: IHeaderProps) {
     <header
       className="h-16 dark:bg-blue-800 fixed flex justify-between items-center w-full bg-blue-600  backdrop-blur-md px-8 z-50">
       <Link
-        href={`/`}
+        href={IMAGES_DICTIONARY[h_type].url}
         className={`logo-container h-16 w-40 relative object-cover object-center`}
       >
-        <Image fill src={IMAGES_DICTIONARY[h_type]} alt="krop_robots logo-text"/>
+        <Image fill src={IMAGES_DICTIONARY[h_type].src} alt="krop_robots logo-text"/>
       </Link>
       <ul className="flex flex-row gap-x-4 items-center justify-center">
         <ThemeSwitcher/>

@@ -10,11 +10,11 @@ import Image from "next/image"
 import getImageSrc from "@/features/getImageSrc";
 import ImagesViewer from "@/components/pages/Product/ImagesViewer";
 import {useBooleanToggler} from "@/hooks/useBooleanToggler";
-import { MdShoppingCart } from "react-icons/md";
+import {MdShoppingCart} from "react-icons/md";
 import {useAppDispatch, useAppSelector} from "@/store/hooks";
 import {addItem} from "@/store/slices/cart.slice";
 import {Plastic, PlasticType} from "@/constants/plastic";
-import { toast } from "react-toastify";
+import {toast} from "react-toastify";
 import {ApiResponseMultiple, ApiResponseSingle, ResponseItem} from "@/types/api-response.type";
 
 
@@ -26,7 +26,6 @@ interface ProductPageProps {
 function ProductPage({data, colors}: ProductPageProps) {
   const {variants, images, category, popular, tags, discount, description} = data.data.attributes;
   const {booleanState, disable, enable} = useBooleanToggler()
-
   const dispatch = useAppDispatch();
 
   const [config, setConfig] = useState<{
@@ -47,8 +46,11 @@ function ProductPage({data, colors}: ProductPageProps) {
         <div className="flex flex-col gap-y-8 flex-1">
           <BlockWrapper>
 
-            <div className="relative w-full h-[275px] s480:h-[375px] sm:h-[475px] rounded overflow-hidden cursor-pointer" onClick={enable}>
-              <Image src={getImageSrc(images.data[0].attributes.url)} alt={images.data[0].attributes.alternativeText} fill className="object-cover"/>
+            <div
+              className="relative w-full h-[275px] s480:h-[375px] sm:h-[475px] rounded overflow-hidden cursor-pointer"
+              onClick={enable}>
+              <Image src={getImageSrc(images.data[0].attributes.url)} alt={images.data[0].attributes.alternativeText}
+                     fill className="object-cover"/>
             </div>
             <div className="flex flex-row gap-x-2 overflow-x-auto">
               {
@@ -58,7 +60,8 @@ function ProductPage({data, colors}: ProductPageProps) {
                     className="w-24 h-24 rounded shadow relative overflow-hidden cursor-pointer shrink-0"
                     onClick={enable}
                   >
-                    <Image src={getImageSrc(image.attributes.url)} alt={image.attributes.alternativeText} fill className="object-cover"/>
+                    <Image src={getImageSrc(image.attributes.url)} alt={image.attributes.alternativeText} fill
+                           className="object-cover"/>
                   </div>
                 ))
               }
@@ -95,7 +98,7 @@ function ProductPage({data, colors}: ProductPageProps) {
             <h2 className="text-lg text-neutral-500 ">{category.data.attributes.name}</h2>
             <MarkdownView
               markdown={description}
-              options={{tables: true, emoji: true, }}
+              options={{tables: true, emoji: true,}}
             />
             <ul className="flex flex-wrap gap-4">
               {
@@ -111,7 +114,7 @@ function ProductPage({data, colors}: ProductPageProps) {
             <h2 className="text-lg">
               Колір: {config.color.attributes.name}
             </h2>
-            <ul className="flex items-center justify-start gap-x-2">
+            <ul className="flex items-center justify-start gap-4 flex-wrap">
               {
                 colors.data.map((color) => (
                   <TooltipProvider key={color.attributes.name}>

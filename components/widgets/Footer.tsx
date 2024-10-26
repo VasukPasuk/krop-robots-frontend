@@ -42,9 +42,8 @@ function Footer() {
         <div className="flex flex-col gap-y-4 lg:flex-row lg:justify-between items-start max-w-[1300px] mx-auto w-full">
           <div>
             <Link href="/">
-              <Image src="/logo_white.png" alt="Picture" width={150} height={150}/>
+              <Image src="/logo_white.png" alt="Picture" className="h-20" width={150} height={150}/>
             </Link>
-
           </div>
           <div className="flex flex-col gap-y-8 mb-8 md:flex-row md:gap-x-24">
             <div className="flex flex-col gap-y-2">

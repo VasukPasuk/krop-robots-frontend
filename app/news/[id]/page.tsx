@@ -3,12 +3,18 @@ import MarkdownView from "react-showdown";
 import "./style.scss"
 import formatDate from "@/features/formatDate";
 import {getOnePost} from "@/actions";
-import {ApiResponseMultiple, ApiResponseSingle} from "@/types/api-response.type";
+import {ApiResponseSingle} from "@/types/api-response.type";
 import {INewsItem} from "@/types";
+import { redirect } from "next/navigation";
+import {redirectURL} from "@/features/urls";
 
 async function Page({params}: { params: { id: string } }) {
-  const data = await getOnePost(params.id);
-  const {id, attributes} = ((await data.json() ) as ApiResponseSingle<INewsItem>).data ;
+  const response = await getOnePost(params.id);
+
+
+  if (!response.ok) redirect(redirectURL.something_is_wrong)
+
+  const {data: {attributes}} = await response.json() as ApiResponseSingle<INewsItem>;
 
   return (
     <div className="mt-6 flex flex-col w-full max-w-[800px] px-4 mx-auto">

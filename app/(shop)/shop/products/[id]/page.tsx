@@ -1,20 +1,22 @@
-import {ApiResponse, ApiResponseMultiple, ApiResponseSingle} from "@/types/api-response.type";
+import {ApiResponseMultiple, ApiResponseSingle} from "@/types/api-response.type";
 import {IColor, IProduct} from "@/types";
 import ProductPage from "@/components/pages/Product/ProductPage";
 
 export default async function Page({params}: { params: { id: string } }) {
-  const product_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}?populate=*`, {
-    cache: "no-cache"
-  });
-  const product: ApiResponseSingle<IProduct> = await product_response.json();
+  const productUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/products/${params.id}?populate=*`;
+  const colorUrl = `${process.env.NEXT_PUBLIC_API_URL}/api/colors`;
 
-  const color_response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/colors`);
-  const colors: ApiResponseMultiple<IColor> = await color_response.json();
+  const [productResponse, colorResponse] = await Promise.all([
+    fetch(productUrl, {cache: "no-cache"}),
+    fetch(colorUrl, {cache: "no-cache"}),
+  ]);
 
+  if (!productResponse.ok || !colorResponse.ok) {
+    throw new Error("Сталася помилка. Не вдалося отримати інформацію про товар.");
+  }
 
-  return (
-    <>
-      <ProductPage data={product} colors={colors}/>
-    </>
-  )
+  const product: ApiResponseSingle<IProduct> = await productResponse.json();
+  const colors: ApiResponseMultiple<IColor> = await colorResponse.json();
+
+  return <ProductPage data={product} colors={colors}/>;
 }

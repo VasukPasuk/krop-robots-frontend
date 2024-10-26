@@ -30,7 +30,7 @@ export default function CartItemBar({item}: { item: ICartItem }) {
       <div className="flex justify-between items-center">
         <div className="flex gap-x-2 items-center justify-center">
           <div
-            className="text-xl rounded transition-colors duration-300 select-none ease-out w-8 h-8 dark:hover:bg-green-600 text-center"
+            className="text-xl rounded transition-colors duration-300 select-none ease-out w-8 h-8 dark:hover:bg-green-600 text-center cursor-pointer hover:bg-black/5"
             onClick={() => dispatch(increaseItemAmount({key: item.key}))}
           >
             +
@@ -46,7 +46,7 @@ export default function CartItemBar({item}: { item: ICartItem }) {
             min={1}
           />
           <div
-            className="text-xl rounded transition-colors duration-300 select-none ease-out text-center w-8 h-8 dark:hover:bg-red-400"
+            className="text-xl rounded transition-colors duration-300 select-none ease-out text-center w-8 h-8 dark:hover:bg-red-400 cursor-pointer hover:bg-black/5"
             onClick={() => dispatch(decreaseItemAmount({key: item.key}))}
           >
             -
